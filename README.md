@@ -2,9 +2,9 @@
 
 Object detection on an original Jetson Nano, with a stopwatch on every step.
 
-![Live detection on the Jetson Nano: three people, a laptop, two chairs and a remote](docs/images/live-detection.png)
+![Live detection on the Jetson Nano: a cap held close to the camera, with boxes around three people and a chair](docs/images/live-detection-cap.png)
 
-*A frame from the live run. The Nano is drawing these boxes on video that arrives from a laptop's webcam over the local network, because the board had no camera of its own. COCO has no class for a cap, so the model labels it a sports ball.*
+*A frame from the live run. The Nano is drawing these boxes on video that arrives from a laptop's webcam over the local network, because the board had no camera of its own. The overlay in the corner is drawn by the detection loop: the frame rate of the whole loop, and the inference time for that frame.*
 
 ## The short version
 
@@ -144,6 +144,10 @@ bash laptop/stream_webcam.sh <nano-ip>         # on the laptop
 ```
 
 If no window appears, `laptop/test_viewer.sh` sends a test pattern straight to the viewer, which tells you whether the problem is on the laptop or on the board.
+
+![Live detection on the Jetson Nano: three people, a laptop, two chairs and a remote](docs/images/live-detection.png)
+
+*Another frame from the same run: three people, a laptop, two chairs and a remote. COCO has no class for a cap, so the model labels it a sports ball.*
 
 ## How far to trust the numbers
 

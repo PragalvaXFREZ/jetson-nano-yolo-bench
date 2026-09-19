@@ -83,10 +83,6 @@ The board had no camera, so a laptop webcam is sent to it as H.264 in RTP over U
 - JPEG for the return path because software H.264 encoding would cost more CPU, and the CPU is the bottleneck.
 - Software decode with `avdec_h264`. The Nano has a dedicated H.264 decoder that does not use the GPU cores, but the GStreamer element needed to reach it from this pipeline, `nvvidconv`, was reported missing when checked over SSH. That was not investigated. At 640 x 480 the CPU decoder keeps up, at the cost of CPU time on a board where the CPU is the scarce resource.
 
-![Live detection with a cap held close to the camera](images/live-detection-cap.png)
-
-*A second frame from the live run. The overlay in the corner is drawn by the detection loop: the frame rate of the whole loop, and the inference time for that frame.*
-
 ### A silent failure worth recording
 
 The first return pipeline, `appsrc ! videoconvert ! jpegenc ! rtpjpegpay ! udpsink`, ran without errors and sent no packets. JPEG over RTP accepts only certain colour layouts. `videoconvert` and `jpegenc` negotiated one it does not, and `rtpjpegpay` dropped every frame with a warning (`Invalid component`) that quiet mode hid. A caps filter, `video/x-raw,format=I420`, before the encoder fixed it: 0 frames received before, 60 after, in the same test.
