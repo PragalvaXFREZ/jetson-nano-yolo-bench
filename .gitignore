@@ -1,0 +1,16 @@
+# Model files: YOLOv8 weights and exports are AGPL-3.0, create them locally
+models/
+*.pt
+*.onnx
+# TensorRT engines only run on the board and TensorRT version that built them
+engines/
+*.engine
+# Run output
+out/
+*.avi
+# Sample image from the Ultralytics repository
+bus.jpg
+# Python
+__pycache__/
+*.pyc
+.venv/
