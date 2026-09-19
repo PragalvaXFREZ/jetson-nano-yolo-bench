@@ -1,0 +1,327 @@
+&&&& RUNNING TensorRT.trtexec [TensorRT v8001] # /usr/src/tensorrt/bin/trtexec --onnx=models/yolov8n_416.onnx --saveEngine=engines/yolov8n_416_fp32.engine --workspace=1024
+[09/19/2026-02:58:54] [I] === Model Options ===
+[09/19/2026-02:58:54] [I] Format: ONNX
+[09/19/2026-02:58:54] [I] Model: models/yolov8n_416.onnx
+[09/19/2026-02:58:54] [I] Output:
+[09/19/2026-02:58:54] [I] === Build Options ===
+[09/19/2026-02:58:54] [I] Max batch: explicit
+[09/19/2026-02:58:54] [I] Workspace: 1024 MiB
+[09/19/2026-02:58:54] [I] minTiming: 1
+[09/19/2026-02:58:54] [I] avgTiming: 8
+[09/19/2026-02:58:54] [I] Precision: FP32
+[09/19/2026-02:58:54] [I] Calibration: 
+[09/19/2026-02:58:54] [I] Refit: Disabled
+[09/19/2026-02:58:54] [I] Sparsity: Disabled
+[09/19/2026-02:58:54] [I] Safe mode: Disabled
+[09/19/2026-02:58:54] [I] Restricted mode: Disabled
+[09/19/2026-02:58:54] [I] Save engine: engines/yolov8n_416_fp32.engine
+[09/19/2026-02:58:54] [I] Load engine: 
+[09/19/2026-02:58:54] [I] NVTX verbosity: 0
+[09/19/2026-02:58:54] [I] Tactic sources: Using default tactic sources
+[09/19/2026-02:58:54] [I] timingCacheMode: local
+[09/19/2026-02:58:54] [I] timingCacheFile: 
+[09/19/2026-02:58:54] [I] Input(s)s format: fp32:CHW
+[09/19/2026-02:58:54] [I] Output(s)s format: fp32:CHW
+[09/19/2026-02:58:54] [I] Input build shapes: model
+[09/19/2026-02:58:54] [I] Input calibration shapes: model
+[09/19/2026-02:58:54] [I] === System Options ===
+[09/19/2026-02:58:54] [I] Device: 0
+[09/19/2026-02:58:54] [I] DLACore: 
+[09/19/2026-02:58:54] [I] Plugins:
+[09/19/2026-02:58:54] [I] === Inference Options ===
+[09/19/2026-02:58:54] [I] Batch: Explicit
+[09/19/2026-02:58:54] [I] Input inference shapes: model
+[09/19/2026-02:58:54] [I] Iterations: 10
+[09/19/2026-02:58:54] [I] Duration: 3s (+ 200ms warm up)
+[09/19/2026-02:58:54] [I] Sleep time: 0ms
+[09/19/2026-02:58:54] [I] Streams: 1
+[09/19/2026-02:58:54] [I] ExposeDMA: Disabled
+[09/19/2026-02:58:54] [I] Data transfers: Enabled
+[09/19/2026-02:58:54] [I] Spin-wait: Disabled
+[09/19/2026-02:58:54] [I] Multithreading: Disabled
+[09/19/2026-02:58:54] [I] CUDA Graph: Disabled
+[09/19/2026-02:58:54] [I] Separate profiling: Disabled
+[09/19/2026-02:58:54] [I] Time Deserialize: Disabled
+[09/19/2026-02:58:54] [I] Time Refit: Disabled
+[09/19/2026-02:58:54] [I] Skip inference: Disabled
+[09/19/2026-02:58:54] [I] Inputs:
+[09/19/2026-02:58:54] [I] === Reporting Options ===
+[09/19/2026-02:58:54] [I] Verbose: Disabled
+[09/19/2026-02:58:54] [I] Averages: 10 inferences
+[09/19/2026-02:58:54] [I] Percentile: 99
+[09/19/2026-02:58:54] [I] Dump refittable layers:Disabled
+[09/19/2026-02:58:54] [I] Dump output: Disabled
+[09/19/2026-02:58:54] [I] Profile: Disabled
+[09/19/2026-02:58:54] [I] Export timing to JSON file: 
+[09/19/2026-02:58:54] [I] Export output to JSON file: 
+[09/19/2026-02:58:54] [I] Export profile to JSON file: 
+[09/19/2026-02:58:54] [I] 
+[09/19/2026-02:58:54] [I] === Device Information ===
+[09/19/2026-02:58:54] [I] Selected Device: NVIDIA Tegra X1
+[09/19/2026-02:58:54] [I] Compute Capability: 5.3
+[09/19/2026-02:58:54] [I] SMs: 1
+[09/19/2026-02:58:54] [I] Compute Clock Rate: 0.9216 GHz
+[09/19/2026-02:58:54] [I] Device Global Memory: 3964 MiB
+[09/19/2026-02:58:54] [I] Shared Memory per SM: 64 KiB
+[09/19/2026-02:58:54] [I] Memory Bus Width: 64 bits (ECC disabled)
+[09/19/2026-02:58:54] [I] Memory Clock Rate: 0.01275 GHz
+[09/19/2026-02:58:54] [I] 
+[09/19/2026-02:58:54] [I] TensorRT version: 8001
+[09/19/2026-02:58:56] [I] [TRT] [MemUsageChange] Init CUDA: CPU +203, GPU +0, now: CPU 221, GPU 2539 (MiB)
+[09/19/2026-02:58:56] [I] Start parsing network model
+[09/19/2026-02:58:56] [I] [TRT] ----------------------------------------------------------------
+[09/19/2026-02:58:56] [I] [TRT] Input filename:   models/yolov8n_416.onnx
+[09/19/2026-02:58:56] [I] [TRT] ONNX IR version:  0.0.7
+[09/19/2026-02:58:56] [I] [TRT] Opset version:    12
+[09/19/2026-02:58:56] [I] [TRT] Producer name:    pytorch
+[09/19/2026-02:58:56] [I] [TRT] Producer version: 2.14.0
+[09/19/2026-02:58:56] [I] [TRT] Domain:           
+[09/19/2026-02:58:56] [I] [TRT] Model version:    0
+[09/19/2026-02:58:56] [I] [TRT] Doc string:       
+[09/19/2026-02:58:56] [I] [TRT] ----------------------------------------------------------------
+[09/19/2026-02:58:56] [W] [TRT] onnx2trt_utils.cpp:364: Your ONNX model has been generated with INT64 weights, while TensorRT does not natively support INT64. Attempting to cast down to INT32.
+[09/19/2026-02:58:56] [I] Finish parsing network model
+[09/19/2026-02:58:56] [I] [TRT] [MemUsageChange] Init CUDA: CPU +0, GPU +0, now: CPU 235, GPU 2569 (MiB)
+[09/19/2026-02:58:56] [I] [TRT] [MemUsageSnapshot] Builder begin: CPU 235 MiB, GPU 2569 MiB
+[09/19/2026-02:58:56] [I] [TRT] ---------- Layers Running on DLA ----------
+[09/19/2026-02:58:56] [I] [TRT] ---------- Layers Running on GPU ----------
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.0/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.0/act/Sigmoid), /model.0/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.1/act/Sigmoid), /model.1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.2/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.2/cv1/act/Sigmoid), /model.2/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.2/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.2/Split_0
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.2/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.2/m.0/cv1/act/Sigmoid), /model.2/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.2/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(PWN(/model.2/m.0/cv2/act/Sigmoid), /model.2/m.0/cv2/act/Mul), /model.2/m.0/Add)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.2/Split_output_1 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.2/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.2/cv2/act/Sigmoid), /model.2/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.3/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.3/act/Sigmoid), /model.3/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.4/cv1/act/Sigmoid), /model.4/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/Split_1
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.4/m.0/cv1/act/Sigmoid), /model.4/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(PWN(/model.4/m.0/cv2/act/Sigmoid), /model.4/m.0/cv2/act/Mul), /model.4/m.0/Add)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/m.1/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.4/m.1/cv1/act/Sigmoid), /model.4/m.1/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/m.1/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(PWN(/model.4/m.1/cv2/act/Sigmoid), /model.4/m.1/cv2/act/Mul), /model.4/m.1/Add)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/Split_output_1 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/m.0/Add_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.4/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.4/cv2/act/Sigmoid), /model.4/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.5/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.5/act/Sigmoid), /model.5/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.6/cv1/act/Sigmoid), /model.6/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/Split_2
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.6/m.0/cv1/act/Sigmoid), /model.6/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(PWN(/model.6/m.0/cv2/act/Sigmoid), /model.6/m.0/cv2/act/Mul), /model.6/m.0/Add)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/m.1/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.6/m.1/cv1/act/Sigmoid), /model.6/m.1/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/m.1/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(PWN(/model.6/m.1/cv2/act/Sigmoid), /model.6/m.1/cv2/act/Mul), /model.6/m.1/Add)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/Split_output_1 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/m.0/Add_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.6/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.6/cv2/act/Sigmoid), /model.6/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.7/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.7/act/Sigmoid), /model.7/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.8/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.8/cv1/act/Sigmoid), /model.8/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.8/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.8/Split_3
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.8/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.8/m.0/cv1/act/Sigmoid), /model.8/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.8/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(PWN(/model.8/m.0/cv2/act/Sigmoid), /model.8/m.0/cv2/act/Mul), /model.8/m.0/Add)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.8/Split_output_1 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.8/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.8/cv2/act/Sigmoid), /model.8/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.9/cv1/act/Sigmoid), /model.9/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/m/MaxPool
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/m_1/MaxPool
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/m_2/MaxPool
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/cv1/act/Mul_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/m/MaxPool_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/m_1/MaxPool_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.9/cv2/act/Sigmoid), /model.9/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.10/Resize
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.10/Resize_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.12/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.12/cv1/act/Sigmoid), /model.12/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.12/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.12/Split_4
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.12/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.12/m.0/cv1/act/Sigmoid), /model.12/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.12/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.12/m.0/cv2/act/Sigmoid), /model.12/m.0/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.12/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.12/cv2/act/Sigmoid), /model.12/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.13/Resize
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.13/Resize_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.15/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.15/cv1/act/Sigmoid), /model.15/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.15/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.15/Split_5
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.15/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.15/m.0/cv1/act/Sigmoid), /model.15/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.15/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.15/m.0/cv2/act/Sigmoid), /model.15/m.0/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.15/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.15/cv2/act/Sigmoid), /model.15/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.16/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.0/cv2.0.0/conv/Conv || /model.22/cv3.0/cv3.0.0/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.16/act/Sigmoid), /model.16/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv2.0/cv2.0.0/act/Sigmoid), /model.22/cv2.0/cv2.0.0/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv3.0/cv3.0.0/act/Sigmoid), /model.22/cv3.0/cv3.0.0/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.12/cv2/act/Mul_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.0/cv2.0.1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv3.0/cv3.0.1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.18/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv2.0/cv2.0.1/act/Sigmoid), /model.22/cv2.0/cv2.0.1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv3.0/cv3.0.1/act/Sigmoid), /model.22/cv3.0/cv3.0.1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.18/cv1/act/Sigmoid), /model.18/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.0/cv2.0.2/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv3.0/cv3.0.2/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.18/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.18/Split_6
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_3
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.18/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.18/m.0/cv1/act/Sigmoid), /model.18/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.18/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.18/m.0/cv2/act/Sigmoid), /model.18/m.0/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.18/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.18/cv2/act/Sigmoid), /model.18/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.19/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.1/cv2.1.0/conv/Conv || /model.22/cv3.1/cv3.1.0/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.19/act/Sigmoid), /model.19/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv2.1/cv2.1.0/act/Sigmoid), /model.22/cv2.1/cv2.1.0/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv3.1/cv3.1.0/act/Sigmoid), /model.22/cv3.1/cv3.1.0/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.9/cv2/act/Mul_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.1/cv2.1.1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv3.1/cv3.1.1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.21/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv2.1/cv2.1.1/act/Sigmoid), /model.22/cv2.1/cv2.1.1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv3.1/cv3.1.1/act/Sigmoid), /model.22/cv3.1/cv3.1.1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.21/cv1/act/Sigmoid), /model.21/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.1/cv2.1.2/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv3.1/cv3.1.2/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.21/Split
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.21/Split_7
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_1
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_4
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.21/m.0/cv1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.21/m.0/cv1/act/Sigmoid), /model.21/m.0/cv1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.21/m.0/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.21/m.0/cv2/act/Sigmoid), /model.21/m.0/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.21/cv2/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.21/cv2/act/Sigmoid), /model.21/cv2/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.2/cv2.2.0/conv/Conv || /model.22/cv3.2/cv3.2.0/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv2.2/cv2.2.0/act/Sigmoid), /model.22/cv2.2/cv2.2.0/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv3.2/cv3.2.0/act/Sigmoid), /model.22/cv3.2/cv3.2.0/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.2/cv2.2.1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv3.2/cv3.2.1/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv2.2/cv2.2.1/act/Sigmoid), /model.22/cv2.2/cv2.2.1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(PWN(/model.22/cv3.2/cv3.2.1/act/Sigmoid), /model.22/cv3.2/cv3.2.1/act/Mul)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv2.2/cv2.2.2/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/cv3.2/cv3.2.2/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_2
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_5
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_1_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_2_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_3_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_4_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Reshape_5_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/dfl/Reshape + /model.22/dfl/Transpose
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(/model.22/Sigmoid)
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] (Unnamed Layer* 228) [Shuffle]
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/dfl/Softmax
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] (Unnamed Layer* 230) [Shuffle] + /model.22/dfl/Transpose_1
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/dfl/conv/Conv
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/dfl/Reshape_1
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Slice
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Slice_1
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Constant_12_output_0
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Sub
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Constant_13_output_0
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Add_1
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Sub_1
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] PWN(/model.22/Constant_14_output_0 + (Unnamed Layer* 243) [Shuffle], PWN(/model.22/Add_2, /model.22/Div_1))
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Div_1_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Sub_1_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Constant_15_output_0 + (Unnamed Layer* 247) [Shuffle]
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Mul_2
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Mul_2_output_0 copy
+[09/19/2026-02:58:56] [I] [TRT] [GpuLayer] /model.22/Sigmoid_output_0 copy
+[09/19/2026-02:58:58] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +158, GPU +137, now: CPU 395, GPU 2713 (MiB)
+[09/19/2026-02:59:00] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +241, GPU +242, now: CPU 636, GPU 2955 (MiB)
+[09/19/2026-02:59:00] [W] [TRT] Detected invalid timing cache, setup a local cache instead
+[09/19/2026-03:03:13] [I] [TRT] Detected 1 inputs and 3 output network tensors.
+[09/19/2026-03:03:13] [I] [TRT] Total Host Persistent Memory: 117568
+[09/19/2026-03:03:13] [I] [TRT] Total Device Persistent Memory: 26839040
+[09/19/2026-03:03:13] [I] [TRT] Total Scratch Memory: 0
+[09/19/2026-03:03:13] [I] [TRT] [MemUsageStats] Peak memory usage of TRT CPU/GPU memory allocators: CPU 3 MiB, GPU 416 MiB
+[09/19/2026-03:03:13] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 893, GPU 2895 (MiB)
+[09/19/2026-03:03:13] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +0, now: CPU 893, GPU 2895 (MiB)
+[09/19/2026-03:03:13] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 893, GPU 2895 (MiB)
+[09/19/2026-03:03:13] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 893, GPU 2895 (MiB)
+[09/19/2026-03:03:13] [I] [TRT] [MemUsageSnapshot] Builder end: CPU 892 MiB, GPU 2895 MiB
+[09/19/2026-03:03:14] [I] [TRT] Loaded engine size: 29 MB
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine begin: CPU 913 MiB, GPU 2922 MiB
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 919, GPU 2922 (MiB)
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +0, now: CPU 919, GPU 2922 (MiB)
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 919, GPU 2922 (MiB)
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageSnapshot] deserializeCudaEngine end: CPU 919 MiB, GPU 2922 MiB
+[09/19/2026-03:03:14] [I] Engine built in 259.934 sec.
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageSnapshot] ExecutionContext creation begin: CPU 870 MiB, GPU 2916 MiB
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 870, GPU 2916 (MiB)
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageChange] Init cuDNN: CPU +0, GPU +0, now: CPU 870, GPU 2916 (MiB)
+[09/19/2026-03:03:14] [I] [TRT] [MemUsageSnapshot] ExecutionContext creation end: CPU 870 MiB, GPU 2916 MiB
+[09/19/2026-03:03:14] [I] Created input binding for images with dimensions 1x3x416x416
+[09/19/2026-03:03:14] [I] Created output binding for output0 with dimensions 1x84x3549
+[09/19/2026-03:03:14] [I] Starting inference
+[09/19/2026-03:03:18] [I] Warmup completed 6 queries over 200 ms
+[09/19/2026-03:03:18] [I] Timing trace has 92 queries over 3.08194 s
+[09/19/2026-03:03:18] [I] 
+[09/19/2026-03:03:18] [I] === Trace details ===
+[09/19/2026-03:03:18] [I] Trace averages of 10 runs:
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.1364 ms - Host latency: 33.4591 ms (end to end 33.4715 ms, enqueue 8.47773 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.1045 ms - Host latency: 33.4278 ms (end to end 33.4401 ms, enqueue 9.63454 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.1034 ms - Host latency: 33.4262 ms (end to end 33.4384 ms, enqueue 8.85914 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.0676 ms - Host latency: 33.3887 ms (end to end 33.4013 ms, enqueue 11.6274 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.0646 ms - Host latency: 33.3858 ms (end to end 33.3984 ms, enqueue 11.0836 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.1613 ms - Host latency: 33.4851 ms (end to end 33.4974 ms, enqueue 9.87041 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.2394 ms - Host latency: 33.5696 ms (end to end 33.582 ms, enqueue 7.75745 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.3417 ms - Host latency: 33.673 ms (end to end 33.6853 ms, enqueue 8.68186 ms)
+[09/19/2026-03:03:18] [I] Average on 10 runs - GPU latency: 33.2257 ms - Host latency: 33.5517 ms (end to end 33.564 ms, enqueue 7.48789 ms)
+[09/19/2026-03:03:18] [I] 
+[09/19/2026-03:03:18] [I] === Performance summary ===
+[09/19/2026-03:03:18] [I] Throughput: 29.8513 qps
+[09/19/2026-03:03:18] [I] Latency: min = 33.3141 ms, max = 34.0791 ms, mean = 33.4864 ms, median = 33.4836 ms, percentile(99%) = 34.0791 ms
+[09/19/2026-03:03:18] [I] End-to-End Host Latency: min = 33.3262 ms, max = 34.092 ms, mean = 33.4987 ms, median = 33.4958 ms, percentile(99%) = 34.092 ms
+[09/19/2026-03:03:18] [I] Enqueue Time: min = 5.83813 ms, max = 14.8602 ms, mean = 9.23536 ms, median = 8.78487 ms, percentile(99%) = 14.8602 ms
+[09/19/2026-03:03:18] [I] H2D Latency: min = 0.19812 ms, max = 0.221924 ms, mean = 0.201764 ms, median = 0.200378 ms, percentile(99%) = 0.221924 ms
+[09/19/2026-03:03:18] [I] GPU Compute Time: min = 32.9926 ms, max = 33.7429 ms, mean = 33.1617 ms, median = 33.158 ms, percentile(99%) = 33.7429 ms
+[09/19/2026-03:03:18] [I] D2H Latency: min = 0.120605 ms, max = 0.131836 ms, mean = 0.12292 ms, median = 0.122559 ms, percentile(99%) = 0.131836 ms
+[09/19/2026-03:03:18] [I] Total Host Walltime: 3.08194 s
+[09/19/2026-03:03:18] [I] Total GPU Compute Time: 3.05088 s
+[09/19/2026-03:03:18] [I] Explanations of the performance metrics are printed in the verbose logs.
+[09/19/2026-03:03:18] [I] 
+&&&& PASSED TensorRT.trtexec [TensorRT v8001] # /usr/src/tensorrt/bin/trtexec --onnx=models/yolov8n_416.onnx --saveEngine=engines/yolov8n_416_fp32.engine --workspace=1024
+[09/19/2026-03:03:18] [I] [TRT] [MemUsageChange] Init cuBLAS/cuBLASLt: CPU +0, GPU +0, now: CPU 870, GPU 2955 (MiB)

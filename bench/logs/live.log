@@ -1,0 +1,40 @@
+[ WARN:0] global /home/nvidia/host/build_opencv/nv_opencv/modules/videoio/src/cap_gstreamer.cpp (933) open OpenCV | GStreamer warning: Cannot query video position: status=1, value=264, duration=-1
+waiting for video on UDP 5000 ... (start laptop/stream_webcam.sh)
+receiving 640x480
+  30 frames  12.5 FPS  2 objects
+  60 frames  12.5 FPS  3 objects
+  90 frames  8.0 FPS  2 objects
+ 120 frames  12.4 FPS  3 objects
+ 150 frames  12.6 FPS  2 objects
+ 180 frames  12.1 FPS  3 objects
+ 210 frames  12.0 FPS  4 objects
+ 240 frames  12.4 FPS  4 objects
+ 270 frames  12.4 FPS  4 objects
+ 300 frames  12.4 FPS  4 objects
+ 330 frames  11.9 FPS  4 objects
+ 360 frames  12.5 FPS  2 objects
+ 390 frames  12.4 FPS  4 objects
+ 420 frames  12.4 FPS  4 objects
+ 450 frames  12.4 FPS  3 objects
+ 480 frames  12.4 FPS  4 objects
+ 510 frames  12.5 FPS  3 objects
+ 540 frames  12.3 FPS  3 objects
+ 570 frames  12.4 FPS  2 objects
+ 600 frames  12.4 FPS  4 objects
+ 630 frames  12.1 FPS  3 objects
+ 660 frames  12.4 FPS  4 objects
+ 690 frames  12.3 FPS  3 objects
+ 720 frames  12.4 FPS  4 objects
+ 750 frames  12.4 FPS  3 objects
+ 780 frames  12.6 FPS  3 objects
+ 810 frames  12.5 FPS  3 objects
+ 840 frames  12.3 FPS  3 objects
+ 870 frames  12.4 FPS  3 objects
+ 900 frames  12.4 FPS  3 objects
+ 930 frames  12.5 FPS  2 objects
+ 960 frames  12.4 FPS  3 objects
+ 990 frames  12.4 FPS  4 objects
+1020 frames  12.6 FPS  4 objects
+1050 frames  12.4 FPS  3 objects
+1080 frames  12.5 FPS  4 objects
+done: 1080 frames in 90 s. saved out/live.avi and bench/live_fps.csv
