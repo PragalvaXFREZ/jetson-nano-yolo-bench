@@ -8,7 +8,7 @@ Object detection on an original Jetson Nano, with a stopwatch on every step.
 
 ## The short version
 
-A Jetson Nano is a small computer with a GPU, built to run neural networks on about ten watts. This project runs YOLOv8n, the smallest YOLOv8 detector, trained on the 80 COCO classes, on one of them through TensorRT, and then asks a simple question: how fast is it really?
+A Jetson Nano is a small computer with a GPU, built to run neural networks on about ten watts. This project runs YOLOv8n, the smallest YOLOv8 detector, on one of them through TensorRT, and then asks a simple question: how fast is it really?
 
 The answer depends on what you time.
 
@@ -22,23 +22,13 @@ It is the same model on the same board in all three rows. The first number is th
 
 The surprise is where the time goes. The neural network was never the slow part. In the live system the GPU is working for about a third of each frame. For the rest, it waits while the Nano's four ARM cores resize images, run NMS over candidate boxes, and decode and encode video.
 
-All the measurements, how they were taken, and the raw logs from the board are in [`bench/results.md`](bench/results.md).
-
-## What a model gives you, and what it does not
-
-A detection model does not take a photo and hand back boxes. It takes one tensor of a fixed shape and returns another.
-
-For this model the input is `[1, 3, 416, 416]`: a batch of one, three colour channels, 416 by 416 pixels, float32 in the range 0 to 1. The output is `[1, 84, 3549]`. That is 3549 candidate boxes, each described by 84 numbers: four for the box (centre x, centre y, width, height) and one confidence score for each of the 80 classes. The 3549 comes from the three detection grids, 52 x 52, 26 x 26 and 13 x 13.
-
-It returns all 3549 candidates for every image, even a blank wall. For the test photo, 3442 of them score below 0.01, 43 pass the 0.25 confidence threshold, and those 43 describe just 5 real objects, because neighbouring grid cells all fire on the same bus.
-
-So there is real work on both sides of the model. Preprocessing has to turn a photo of any size into that exact input tensor without distorting it, which means letterboxing, a BGR to RGB swap, and HWC to CHW. Postprocessing has to turn 3549 candidates into 5 boxes, which means a confidence filter, IoU, and class-aware NMS. That work is [`common/yolo.py`](common/yolo.py), written in plain numpy, with the tensor shape noted on every line so it can be followed step by step.
-
-It was checked against the Ultralytics pipeline using the same ONNX file. Both find the same five objects, with scores that agree to three decimal places and boxes that agree to within one pixel.
+Every measurement, how it was taken, and the raw logs from the board: [`bench/results.md`](bench/results.md).
 
 ## How the pieces fit
 
-Getting the model ready happens once. The Nano's Python is too old to install `ultralytics`, so the model is exported to ONNX on a laptop and only that file is sent across. The Nano then builds a TensorRT engine from it for its own GPU, which takes about ten minutes.
+A detection model does not take a photo and hand back boxes. It takes one tensor, `[1, 3, 416, 416]`, and returns another, `[1, 84, 3549]`: 3549 candidate boxes for every image, of which a handful are real. The work on either side of it is [`common/yolo.py`](common/yolo.py), in plain numpy, with the tensor shape noted on every line.
+
+Getting the model ready happens once. The Nano's Python is too old to install `ultralytics`, so the model is exported to ONNX on a laptop, and the Nano builds a TensorRT engine from that file.
 
 ```mermaid
 flowchart LR
@@ -73,43 +63,35 @@ flowchart TB
 
 Count the boxes on the Nano's side. Six say CPU and one says GPU. That picture is the whole result of this project in one glance.
 
-One design choice made everything else easier. `common/yolo.py` runs unchanged on the laptop and on the Nano. Only the step in the middle differs: the laptop runs the network with onnxruntime on its CPU, and the Nano runs it with TensorRT on its GPU. Because of that, the numpy code could be proven correct on the laptop first. After that, anything that went wrong on the board could only be the TensorRT part, which cut every later debugging problem in half.
+`common/yolo.py` runs unchanged on both machines, with onnxruntime in the middle on the laptop and TensorRT on the Nano. So the numpy code was proven correct on the laptop first, against the Ultralytics pipeline, and anything that went wrong on the board could only be the TensorRT side.
 
 ## The board decided the design
 
-On a workstation or in the cloud, a problem can be solved by adding memory, upgrading a driver, or picking a bigger machine. On a small board none of that is possible. The design ends up being whatever the device leaves room for, and nearly every choice in this project was made by a limit of the hardware.
+On a small board you cannot add memory, upgrade a driver, or pick a bigger machine. The design ends up being whatever the device leaves room for.
 
-**The software is frozen.** NVIDIA's last release for this board is JetPack 4.6, from 2021. That means Python 3.6 and TensorRT 8.0, for good. The `ultralytics` package needs a newer Python, so the export has to happen on a laptop, and it has to target an older ONNX opset (`opset=12`) that TensorRT 8.0 can still parse.
+| Limit of the device | What it forced |
+|---|---|
+| JetPack 4.6 is the last release for this board: Python 3.6, TensorRT 8.0 | Export on a laptop with `opset=12`, and send only the ONNX file across |
+| `pycuda` not installed, and slow to build on the board | `cudaMalloc` and `cudaMemcpy` called directly through `ctypes`, in about ten lines |
+| 4 GB shared by CPU and GPU, over half taken by the desktop | Boot headless first: idle memory use went from 2.3 GB to 276 MB |
+| No camera | A laptop webcam streamed over the LAN, opened in OpenCV as a GStreamer pipeline |
+| Hardware H.264 decode path unavailable | Software decode, on the CPU that was already the bottleneck |
+| Borrowed board that went down twice mid-job | Build and benchmark scripts skip finished work, so rerunning is cheap |
 
-**The usual GPU library was missing.** Nearly every TensorRT tutorial moves data to the GPU with `pycuda`. It was not installed, and building it on the Nano takes a quarter of an hour. Only three operations were needed: allocate device memory, copy host to device, copy device to host. Those are `cudaMalloc` and `cudaMemcpy` in `libcudart`, which ships with JetPack, so [`nano/trt_runner.py`](nano/trt_runner.py) calls them directly through `ctypes`. It comes to about ten lines, and it shows exactly what happens where `pycuda` would have hidden it.
-
-**There is only 4 GB, and the GPU shares it.** The Nano has no separate video memory. With the desktop running, more than half was already gone and the board was using swap before anything had started. Turning the desktop off took idle memory use from 2.3 GB to 276 MB, and only then did the model have room.
-
-**There was no camera.** So a laptop's webcam stands in for one. The video is encoded as H.264, sent as RTP over UDP on the local network, and opened in OpenCV through a GStreamer pipeline as though it were a camera plugged into the board. The detection code never knows the difference.
-
-**The hardware H.264 decode path could not be used,** so the stream is decoded in software with `avdec_h264`, on the same CPU that turned out to be the bottleneck.
-
-**The board was borrowed, and it went down twice in the middle of long jobs.** A TensorRT engine build has no checkpoint, so the first one was simply lost. After that, the scripts were written to skip anything already finished, which makes rerunning them after an interruption cheap.
-
-More on each of these in [`docs/design-notes.md`](docs/design-notes.md).
+The reasoning behind each row: [`docs/design-notes.md`](docs/design-notes.md).
 
 ## What the measurements showed
 
-**Convolutions are only 60% of GPU time.** They are the heavy arithmetic in the network, the part everyone pictures. The per-layer profile shows the engine running as 185 layers, and 40% of the time goes to the ones in between: pointwise activations, reshapes, copies.
-
-**The slowest single layer is not a convolution at all.** It is the fused SiLU activation right after the first convolution, where the feature map is still at its largest, 16 x 208 x 208. It has no weights and very little arithmetic, and at 5.9% it takes more time than any other layer in the network.
-
-**Part of every frame is a fixed cost.** Shrinking the image to 0.59 times as many pixels should have cut the time to 0.59. It cut it to 0.66. Working backwards from the two measurements, about 4.3 ms of each frame does not shrink with the image at all. That is roughly 23 microseconds for each of the 185 layers, which is about what a kernel launch costs from a slow CPU. This is an estimate from two measurements, and the results file says so.
-
-**FP16 did not give half the time, and the reason is still open.** Building with `--fp16` made the engine file about half the size, but only 1.29 times faster than FP32. The tempting explanation is that the pointwise layers are memory-bandwidth bound. Two lines of arithmetic rule that out. Halving the precision halves the bytes moved, so a bandwidth-bound layer would have sped up too. And the slowest layer takes fifteen times longer than the Nano's 25.6 GB/s can account for. [`bench/results.md`](bench/results.md#6-open-question-why-fp16-gave-only-129x) lays out what is ruled out, what is still possible, and the one measurement that would have settled it.
-
-**A smaller input is faster, and it costs you the hard cases.** At 320 pixels the engine is 1.5 times faster and finds four of the five objects. The one it loses is the hardest: a person half cut off at the edge of the photo, which scored only 0.29 at 416.
+- **Convolutions are only 60% of GPU time.** The engine runs as 185 layers, and 40% goes to pointwise activations, reshapes and copies.
+- **The slowest single layer is an activation, not a convolution:** the fused SiLU after the first convolution, at 5.9%.
+- **About 4.3 ms of every 25.6 ms is fixed cost,** roughly 23 microseconds per layer. That is why 0.59 times the pixels gave 0.66 times the time. Estimated from two input sizes.
+- **A 320 pixel input is 1.5 times faster and loses the hardest object** in the test photo, the half-visible person at the left edge.
 
 | 416 pixels: 5 objects | 320 pixels: 4 objects |
 |---|---|
 | ![Detections at 416 px](docs/images/bus-416.jpg) | ![Detections at 320 px](docs/images/bus-320.jpg) |
 
-Look at the left edge of each photo. The partly hidden person has a box at 416 and none at 320.
+**One question is still open: FP16 gave only 1.29 times over FP32.** The tempting explanation is that the pointwise layers are memory-bandwidth bound. Arithmetic rules that out: halving the precision halves the bytes moved, so such a layer would have sped up too, and the slowest layer takes fifteen times longer than the Nano's 25.6 GB/s can account for. [`bench/results.md`](bench/results.md#6-open-question-why-fp16-gave-only-129x) lists what is ruled out, what remains, and the one measurement that would settle it.
 
 ## What is in the repository
 
@@ -127,9 +109,7 @@ Look at the left edge of each photo. The partly hidden person has a box at 416 a
 
 ## Trying it
 
-### On a laptop, with no Jetson
-
-This runs the full detector on a CPU. It is the quickest way to see `common/yolo.py` working.
+On a laptop, with no Jetson:
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
@@ -142,11 +122,7 @@ mv yolov8n.onnx yolov8n_416.onnx && cd ..
 python laptop/run_onnx.py path/to/any.jpg
 ```
 
-The export downloads the model by itself. Model files are not kept in this repository, for the reason given under [Licence](#licence).
-
-### On a Jetson Nano with JetPack 4.6
-
-Copy the folder to the board, then build the engines there. A TensorRT engine only runs on the GPU and TensorRT version that built it, so this step cannot be done on the laptop, however much faster the laptop is.
+On a Jetson Nano with JetPack 4.6. An engine only runs on the GPU and TensorRT version that built it, so the build has to happen on the board:
 
 ```bash
 scp -r . user@<nano-ip>:~/jetson-nano-yolo-bench          # from the laptop
@@ -157,13 +133,9 @@ python3 nano/detect_image.py path/to/any.jpg
 bash nano/bench.sh
 ```
 
-Each build takes about ten minutes and prints almost nothing while it works. It has not frozen. Leave the GPU alone during a build: TensorRT selects a kernel for each layer by timing the candidates on the real GPU, and a second job would corrupt those timings.
+Each build takes about ten minutes and prints almost nothing while it works. Leave the GPU alone until it finishes: TensorRT selects a kernel for each layer by timing the candidates on the real GPU, and a second job would corrupt those timings.
 
-On a 4 GB Nano, turn the desktop off first with `sudo systemctl set-default multi-user.target` and reboot.
-
-### Live video from a laptop webcam
-
-Start these three in order. The first two wait quietly until the third begins sending.
+Live video from a laptop webcam. Start these in order:
 
 ```bash
 python3 nano/detect_stream.py <laptop-ip>      # on the Nano
@@ -171,17 +143,14 @@ bash laptop/view_result.sh                     # on the laptop
 bash laptop/stream_webcam.sh <nano-ip>         # on the laptop
 ```
 
-If no window appears, `laptop/test_viewer.sh` sends a test pattern straight to the viewer. That tells you whether the problem is on the laptop or on the board.
-
-![Live detection with a cap held close to the camera](docs/images/live-detection-cap.png)
+If no window appears, `laptop/test_viewer.sh` sends a test pattern straight to the viewer, which tells you whether the problem is on the laptop or on the board.
 
 ## How far to trust the numbers
 
-These come from one board on one day, in MAXN power mode, with dynamic clock scaling left on (no `jetson_clocks`). They are good to within a few percent.
-
-The per-stage timings use a single photo. NMS takes longer when there are more detections in the scene, so a crowded image would shift the balance a little further towards the CPU.
-
-The fixed-cost figure rests on two measurements. And the FP16 question is open because one measurement was never taken: a per-layer profile of the FP32 engine, to set beside the FP16 one.
+- One board, one day, MAXN power mode, dynamic clock scaling left on (no `jetson_clocks`). Good to within a few percent.
+- Per-stage timings use a single photo. NMS takes longer with more detections in the scene.
+- The fixed-cost figure rests on two measurements.
+- The FP16 question is open because the FP32 engine was never profiled per layer.
 
 ## Licence
 

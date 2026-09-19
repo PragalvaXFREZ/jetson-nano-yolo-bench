@@ -36,6 +36,14 @@ The same network exists as three files, and each one is there for a reason.
 
 416 and 320 are both multiples of 32, which the network needs because it halves the image five times.
 
+## One file, two machines
+
+`common/yolo.py` runs unchanged on the laptop and on the Nano. Only the step in the middle differs: the laptop executes the network with onnxruntime on its CPU, and the Nano executes it with TensorRT on its GPU.
+
+That was deliberate. Postprocessing bugs are hard to spot, because wrong boxes still look plausible. On the laptop the numpy code could be compared directly with the Ultralytics pipeline on the same ONNX file, and it matches: the same five detections, scores equal to three decimals, boxes within one pixel. Once that was established, anything that went wrong on the board could only be on the TensorRT side. It halved every later debugging problem before it happened.
+
+It also sets a constraint. Everything in `common/` and `nano/` has to run on the Nano's Python 3.6 and numpy 1.13, so there are no f-string debug specifiers, no `np.take_along_axis`, no dataclasses.
+
 ## The two tensors
 
 The model's whole contract with the outside world is two shapes.
@@ -73,6 +81,11 @@ The board had no camera, so a laptop webcam is sent to it as H.264 in RTP over U
 - OpenCV opens the GStreamer receive pipeline as if it were a camera, so the detection loop is identical to the single-image path.
 - `appsink drop=true max-buffers=1`: the camera produces 30 FPS and the detector about 12. Without this, frames queue up and the picture falls further behind every second. With it, the loop always gets the newest frame.
 - JPEG for the return path because software H.264 encoding would cost more CPU, and the CPU is the bottleneck.
+- Software decode with `avdec_h264`. The Nano has a dedicated H.264 decoder that does not use the GPU cores, but the GStreamer element needed to reach it from this pipeline, `nvvidconv`, was reported missing when checked over SSH. That was not investigated. At 640 x 480 the CPU decoder keeps up, at the cost of CPU time on a board where the CPU is the scarce resource.
+
+![Live detection with a cap held close to the camera](images/live-detection-cap.png)
+
+*A second frame from the live run. The overlay in the corner is drawn by the detection loop: the frame rate of the whole loop, and the inference time for that frame.*
 
 ### A silent failure worth recording
 
